@@ -5,6 +5,7 @@ cd SistemaWeb
 docker-compose up --build
 ```
 http://localhost:8000/
+
 ---
 ### sem docker
 (opcional venv)
