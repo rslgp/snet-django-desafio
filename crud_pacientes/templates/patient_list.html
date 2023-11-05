@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Patient List{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Patient List</h1>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Endereço</th>
+            <th scope="col">Número</th>
+            <th scope="col">Cidade</th>
+            <th scope="col">UF</th>
+            <th scope="col">País</th>
+            <th scope="col">CEP</th>
+            <th scope="col">Data Criacao</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient in patients %}
+          <tr>
+            <td>{{ patient.Nome }}</td>
+            <td>{{ patient.Telefone }}</td>
+            <td>{{ patient.Endereco }}</td>
+            <td>{{ patient.Numero }}</td>
+            <td>{{ patient.Cidade }}</td>
+            <td>{{ patient.UF }}</td>
+            <td>{{ patient.Pais }}</td>
+            <td>{{ patient.CEP }}</td>
+            <td>{{ patient.Data_Criacao }}</td>
+            <td>
+              <a href="{% url 'patient_detail' patient.pk %}" class="btn btn-primary">View</a>
+              <a href="{% url 'patient_update' patient.pk %}" class="btn btn-secondary">Edit</a>
+              <a href="{% url 'patient_delete' patient.pk %}" class="btn btn-danger">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <a href="{% url 'patient_create' %}" class="btn btn-success">Create Patient</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

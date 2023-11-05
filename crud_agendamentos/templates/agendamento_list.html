@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Agendamentos</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Data</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Status</th>
+        <th scope="col">Médico</th>
+        <th scope="col">Paciente</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for agendamento in agendamentos %}
+        <tr>
+          <td>{{ agendamento.Data|date:"d/m/Y H:i" }}</td>
+          <td>{{ agendamento.Descricao }}</td>
+          <td>{{ agendamento.Status }}</td>
+          <td>{{ agendamento.Medico }}</td>
+          <td>{{ agendamento.Paciente }}</td>
+          <td>
+          <a href="{% url 'agendamento_detail' agendamento.pk %}" class="btn btn-primary">View</a>
+          <a href="{% url 'agendamento_update' agendamento.pk %}" class="btn btn-secondary">Edit</a>
+          <a href="{% url 'agendamento_delete' agendamento.pk %}" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">Sem agendamentos.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'agendamento_create' %}" class="btn btn-success">Criar Agendamento</a>
+{% endblock %}

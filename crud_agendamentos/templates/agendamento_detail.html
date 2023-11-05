@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Agendamento Detail</h1>
+  <p><strong>Data:</strong> {{ agendamento.Data|date:"d/m/Y H:i" }}</p>
+  <p><strong>Descrição:</strong> {{ agendamento.Descricao }}</p>
+  <p><strong>Status:</strong> {{ agendamento.Status }}</p>
+  <p><strong>Médico:</strong> {{ agendamento.Medico }}</p>
+  <p><strong>Paciente:</strong> {{ agendamento.Paciente }}</p>
+  <a href="{% url 'agendamento_update' agendamento.pk %}" class="btn btn-secondary">Edit</a>
+  <a href="{% url 'agendamento_delete' agendamento.pk %}" class="btn btn-danger">Delete</a>
+  <a href="{% url 'agendamento_list' %}" class="btn btn-secondary">Back to List</a>
+{% endblock %}

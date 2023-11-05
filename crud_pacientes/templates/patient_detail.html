@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Patient Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Patient Detail</h1>
+  <div class="row">
+    <div class="col">
+      <p><strong>Nome:</strong> {{ patient.Nome }}</p>
+      <p><strong>Telefone:</strong> {{ patient.Telefone }}</p>
+      <p><strong>Endereço:</strong> {{ patient.Endereco }}</p>
+      <p><strong>Número:</strong> {{ patient.Numero }}</p>
+      <p><strong>Cidade:</strong> {{ patient.Cidade }}</p>
+      <p><strong>UF:</strong> {{ patient.UF }}</p>
+      <p><strong>País:</strong> {{ patient.Pais }}</p>
+      <p><strong>CEP:</strong> {{ patient.CEP }}</p>
+      <p><strong>Data Criacao:</strong> {{ patient.Data_Criacao }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <a href="{% url 'patient_update' patient.pk %}" class="btn btn-secondary">Edit</a>
+      <a href="{% url 'patient_delete' patient.pk %}" class="btn btn-danger">Delete</a>
+      <a href="{% url 'patient_list' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Update Doctor{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Update Doctor</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome</label>
+      <input type="text" class="form-control" id="nome" name="Nome" value="{{ doctor.Nome }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail</label>
+      <input type="email" class="form-control" id="email" name="E_mail" value="{{ doctor.E_mail }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="senha" class="form-label">Senha</label>
+      <input type="password" class="form-control" id="senha" name="Senha" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="{% url 'doctor_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

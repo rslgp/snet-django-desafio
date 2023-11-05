@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Doctor Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Doctor Detail</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <p><strong>Nome:</strong> {{ doctor.Nome }}</p>
+      <p><strong>E-mail:</strong> {{ doctor.E_mail }}</p>
+      <p><strong>Data de Criacao:</strong> {{ doctor.Data_de_Criacao }}</p>
+    </div>
+  </div>
+  <a href="{% url 'doctor_update' doctor.pk %}" class="btn btn-secondary">Edit</a>
+  <a href="{% url 'doctor_delete' doctor.pk %}" class="btn btn-danger">Delete</a>
+  <a href="{% url 'doctor_list' %}" class="btn btn-secondary">Back to List</a>
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Create/Update Patient{% endblock %}
+
+{% block content %}
+<!-- Include the jQuery library -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- Include the jQuery Mask Plugin library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+<script>
+  $(document).ready(function() {
+    
+    // Apply the CEP mask to the CEP field
+    $('#cep').inputmask('99999-999');
+
+    // Apply a dynamic mask for the telefone field
+    $('#telefone').inputmask('(99) 99999-999[9]')
+    .on('change keyup paste', function () {
+      var digits = $(this).val().replace(/\D/g, '').length;
+
+      // ... if there are only 8 digits we reformat as 4+4 - 
+      // but yet letting space for another digit (which would reformat the mask back to 5+4)
+      if (digits == 10)
+        $(this).inputmask('(99) 9999-9999[9]');
+      else
+        $(this).inputmask("(99) 99999-9999");
+  });
+
+    //CEP AUTO FILL
+    $('#cep').on('blur', function() {
+      var cep = $(this).val().replace(/\D/g, '');
+      if (cep.length === 8) {
+        $.getJSON('https://viacep.com.br/ws/' + cep + '/json/', function(data) {
+          if (!data.erro) {
+            $('#endereco').val(data.logradouro);
+            $('#cidade').val(data.localidade);
+            $('#uf').val(data.uf);
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<div class="container">
+  <h1>Create Patient</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome</label>
+      <input type="text" class="form-control" id="nome" name="Nome" value="{{ patient.Nome }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="telefone" class="form-label">Telefone</label>
+      <input type="text" class="form-control" id="telefone" name="Telefone" value="{{ patient.Telefone }}"  required>
+    </div>
+    <div class="mb-3">
+      <label for="pais" class="form-label">País</label>
+      <input type="text" class="form-control" id="pais" name="Pais" value="{{ patient.Pais }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="cep" class="form-label">CEP</label>
+      <input type="text" class="form-control" id="cep" name="CEP" value="{{ patient.CEP }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="numero" class="form-label">Número</label>
+      <input type="text" class="form-control" id="numero" name="Numero" value="{{ patient.Numero }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="endereco" class="form-label">Endereço</label>
+      <input type="text" class="form-control" id="endereco" name="Endereco" value="{{ patient.Endereco }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="cidade" class="form-label">Cidade</label>
+      <input type="text" class="form-control" id="cidade" name="Cidade" value="{{ patient.Cidade }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="uf" class="form-label">UF</label>
+      <input type="text" class="form-control" id="uf" name="UF" value="{{ patient.UF }}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a href="{% url 'patient_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}
