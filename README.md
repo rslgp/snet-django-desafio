@@ -4,6 +4,7 @@
 cd SistemaWeb
 docker-compose up --build
 ```
+http://localhost:8000/
 ---
 ### sem docker
 (opcional venv)
@@ -18,3 +19,4 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver localhost:8000
 ```
+http://localhost:8000/
